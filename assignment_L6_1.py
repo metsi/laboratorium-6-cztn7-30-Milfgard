@@ -34,12 +34,12 @@ iris = datasets.load_iris()
 
 X = iris.data[:, [0, 2]]
 y = iris.target
-
+#!!1
 selector = SelectKBest(mutual_info_classif, k=2)
 selector.fit(X, y)
 
 X_new = selector.transform(X)
-
+#!!1
 clf1 = DecisionTreeClassifier(max_depth=10)
 clf2 = KNeighborsClassifier(n_neighbors=1)
 clf3 = SVC(kernel='rbf', probability=True)
@@ -47,6 +47,7 @@ clf4 = SVC(kernel='linear', probability=True)
 clf5 = GaussianNB()
 eclf = VotingClassifier(estimators=[('dt', clf1), ('knn', clf2), ('svc1', clf3), ('svc2', clf4), ('gnb', clf5)],
                         voting='soft', weights=[2, 1, 2, 2, 1])
+#!!1
 
 clf1.fit(X_new, y)
 clf2.fit(X_new, y)
@@ -54,14 +55,14 @@ clf3.fit(X_new, y)
 clf4.fit(X_new, y)
 clf5.fit(X_new, y)
 eclf.fit(X_new, y)
-
+#!!1
 x_min, x_max = X_new[:, 0].min() - 1, X_new[:, 0].max() + 1
 y_min, y_max = X_new[:, 1].min() - 1, X_new[:, 1].max() + 1
 xx, yy = np.meshgrid(np.arange(x_min, x_max, 0.1),
                      np.arange(y_min, y_max, 0.1))
 
 f, axarr = plt.subplots(3, 2, sharex='col', sharey='row', figsize=(10, 8))
-
+#!!1
 for idx, clf, tt in zip(product([0, 1], [0, 1], [0, 1]),
                         [clf1, clf2, clf3, clf4, clf5, eclf],
                         ['Decision Tree (depth=10)', 'KNN (k=1)',
@@ -77,3 +78,4 @@ for idx, clf, tt in zip(product([0, 1], [0, 1], [0, 1]),
 
 plt.show()
 
+#!!1
